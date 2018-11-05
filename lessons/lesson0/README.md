@@ -442,21 +442,30 @@ Now copy and paste the link into your shell, and download it with the `wget` com
 wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh
 ```
 
-Once the file has downloaded, you can run it like any bash script (notice it is a `.sh` file), with the bash command.
+Once the file has downloaded, you can run it like any bash script (notice it is a `.sh` file). Like above, we make it executable and then run it with `./script.sh`.
 ```bash
-bash https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh 
+chmod u+x https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh 
+./https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh
 ```
 
-This will prompt you to read a licence file. Scroll to the bottom and type `yes`. Then it will install lots of things. It will also leave a note at the bottom about needing to `source` a script. This is just a little script that makes the `conda` command available from the shell. Unfortunately, we need to run this command each time we open a new shell or ssh to a new machine.
+This will prompt you to read a licence file. Scroll to the bottom and type `yes`. Then it will install lots of things. It will also leave a note at the bottom about needing to `source` a script or add conda to path and offer a command to do so. This is just a little command that makes the `conda` command available from anywhere in the shell. Unfortunately, we need to run this command each time we open a new shell or ssh into a machine.
 
 Luckily, there are special files that will automatically run script for you when you open a shell.
 
 ### Exporting a path in .bashrc or .bash_profile
-For a local shell (one on your computer), we use the `~/.bashrc`.
+There are two config files that we can put commands in to run when the shell starts.
 
-For a shell opened with **ssh**, we use the `~/.bash_profile`.
+- A local bash shell (one on your computer), will run the `~/.bashrc` config file when it starts up.
 
-Open the bash config file for your particular case in your editor of choice and copy and paste the source line into that file.
+- A remote shell (one you access via ssh) will run the the `~/.bash_profile` config file when it starts up.
+
+Notice that each of these files needs to be located in the `~` home directory.
+
+Open the bash config file for your particular case in your editor of choice and copy and paste the command offered by Anaconda into that file.
+```bash
+source /path/to/Anaconda/conda.sh
+# or export PATH=PATH+"path/to/Anaconda"
+```
 
 Now the source comand will be run each time your shell opens and you will have access to the `conda` command. To see if it worked, source your bash config file and then type `conda --version`.
 
